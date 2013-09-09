@@ -1,0 +1,4 @@
+Language: Python
+Version: 0.1
+Description: Python language base
+FileExtensions: py
