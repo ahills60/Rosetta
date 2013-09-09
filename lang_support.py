@@ -57,3 +57,8 @@ def LanguageInfo(lang_path = None):
         outputList[idx] = content
     fin.close()
     return outputList
+
+def ProcessExtensionDescriptor(descriptor = None):
+    if descriptor is None:
+        raise Exception("Descriptor has not been defined.")
+    return [item.strip() for item in descriptor.split(',')]

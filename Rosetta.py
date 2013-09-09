@@ -16,6 +16,9 @@ class Rosetta:
         """
         
         print("\nRosetta v%s by Andrew Hills <a.hills@sheffield.ac.uk>\n" % self.__version__)
+        
+        self.lang_support = []
+        self.langDirList = []
     
     def CheckSupport(self, lang_dir = "languages", verbose = True):
         """
@@ -42,8 +45,47 @@ class Rosetta:
             for (language, version, description, fileextensions) in langSupport:
                 print("%s (%s)\t%s" % (language, version, description))
             print "\n"
+        for (langID, langItem) in enumerate(langSupport):
+            langSupport[langID][3] = lang_support.ProcessExtensionDescriptor(langItem[3])
+        
+        # Now store as part of the class file.
+        self.langSupport = langSupport
+        self.langDirList = langDirList
+
+    def DetermineLanguage(self, filename = None, verbose = True):
+        """
+        This function determines the programming language from a
+        particular file.
+        """
+        if filename is None:
+            raise Exception("Filename needs to be specified.")
+        if not os.path.exists(filename):
+            raise IOError("File %s does not exist." % filename)
+        if filename.find('.') == -1:
+            raise IOError("File does not have an extension.")
+        
+        # At the moment, language determination is based on file extensions.
+        extension = filename.rsplit('.')[1]
+        matchingID = []
+
+        for (langID, (language, version, description, supportedexts)) in enumerate(self.langSupport):
+            if extension in supportedexts:
+                matchingID.append(langID)
+        if len(matchingID) == 1:
+            if verbose:
+                print("File %s appears to be written in %s.\n" % (filename, self.langSupport[matchingID[0]][0]))
+            return matchingID[0]
+        elif len(matchingID) == 0:
+            raise Exception("Could not find a valid file descriptor for %s" % filename)
+        else:
+            raise NotImplementedError("Multiple languages found. Don't know what to do yet.")
 
 if __name__ == "__main__":
     # This is run from a Terminal window
     ros = Rosetta()
     ros.CheckSupport()
+    try:
+        filename = ros.DetermineLanguage(sys.argv[1])
+    except:
+        sys.exit(-1)
+    
