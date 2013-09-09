@@ -38,11 +38,9 @@ def LanguageInfo(lang_path = None):
         # Iteratively go through this file
         if line.find(':') == -1:
             # Possibly a continuation of the previous field
-            if idx == -1:
-                # No, it wasn't
-                continue
-            else:
-                outputList[ent] += " " + line.strip()
+            if idx > -1:
+                outputList[idx] += " " + line.strip()
+            continu
         name, content = line.split(":", 1)
         name = name.strip().lower()
         content = content.strip()
@@ -55,7 +53,7 @@ def LanguageInfo(lang_path = None):
             idx = 2
         elif name == 'fileextensions':
             idx = 3
-            
+        
         outputList[idx] = content
     fin.close()
     return outputList
