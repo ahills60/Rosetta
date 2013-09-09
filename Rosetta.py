@@ -85,7 +85,8 @@ if __name__ == "__main__":
     ros = Rosetta()
     ros.CheckSupport()
     try:
-        filename = ros.DetermineLanguage(sys.argv[1])
+        filename = sys.argv[1]
+        langID1 = ros.DetermineLanguage(filename)
     except:
         sys.exit(-1)
     
