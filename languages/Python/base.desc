@@ -1,0 +1,9 @@
+comment-line: #
+for-loop: for #1 in #2:
+if: if #1:
+if-elseif: elif #1:
+if-else: else:
+import: import #1
+import-as: import #1 as #2
+import-specific: from #1 import #2
+function-define: def #1(#2):

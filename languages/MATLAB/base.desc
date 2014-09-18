@@ -1,0 +1,10 @@
+comment-line: %
+comment-block-start: %{
+comment-block-end: %}
+for-loop: for #1 = #2:
+if: if #1
+if-elseif: elseif #1:
+if-else: else:
+if-end: end
+function-define: function #1(#2)
+function-define-output: #3 = function #1(#2)
