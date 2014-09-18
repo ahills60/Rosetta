@@ -2,6 +2,7 @@
 
 import sys, os, glob
 import lang_support
+import parser
 
 class Rosetta:
     """
@@ -73,7 +74,7 @@ class Rosetta:
                 matchingID.append(langID)
         if len(matchingID) == 1:
             if verbose:
-                print("File %s appears to be written in %s.\n" % (filename, self.langSupport[matchingID[0]][0]))
+                print("File \"%s\" appears to be written in %s.\n" % (filename, self.langSupport[matchingID[0]][0]))
             return matchingID[0]
         elif len(matchingID) == 0:
             raise Exception("Could not find a valid file descriptor for %s" % filename)
